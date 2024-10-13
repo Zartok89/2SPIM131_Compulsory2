@@ -10,19 +10,25 @@ UCLASS()
 class OBLIG2_API APKCharacter : public AActor
 {
 	GENERATED_BODY()
-	
-public:	
+
+protected:
+	virtual void BeginPlay() override;
+
+public:
+	// Declare Delegates
+	DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FOnCharacterDeathSignature, APKCharacter*, Character);
+
 	// Sets default values for this actor's properties
 	APKCharacter();
 
-protected:
-	// Called when the game starts or when spawned
-	virtual void BeginPlay() override;
-
-public:	
-	// Called every frame
 	virtual void Tick(float DeltaTime) override;
 
-	float lol = 0.0;
+	// Instancing the Delegate
+	UPROPERTY(BlueprintAssignable, Category = "CharacterEvent")
+	FOnCharacterDeathSignature OnEnemyDeath;
 
+	void Die();
+
+protected:
+	void HandleDeath();
 };

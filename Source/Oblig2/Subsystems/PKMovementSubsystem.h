@@ -1,6 +1,7 @@
 #pragma once
 
 #include "CoreMinimal.h"
+#include "Oblig2/Components/PKMovementDataComponent.h"
 #include "Subsystems/WorldSubsystem.h"
 #include "PKMovementSubsystem.generated.h"
 
@@ -24,7 +25,12 @@ public:
 	virtual TStatId GetStatId() const override;
 
 private:
-	TArray<TWeakObjectPtr<AActor>> ActorsWithMovementComponent;
+	//TArray<TWeakObjectPtr<AActor>> Actors;
+    TArray<AActor*> Actors;  
+    TArray<UPKMovementDataComponent*> MovementComponents;  
+    TArray<FVector> Velocities;  
+    TArray<FVector> Accelerations;  
+    TArray<float> MaxSpeeds;  
 
 	void CollectActorsWithMovementComponent();
 };

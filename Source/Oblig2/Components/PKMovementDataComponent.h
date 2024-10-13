@@ -15,38 +15,13 @@ public:
 	UPKMovementDataComponent();
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "MovementData")
-	TArray<FVector> Velocity;
+	FVector Velocity;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "MovementData")
-	TArray<FVector> Acceleration;
+	FVector Acceleration;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "MovementData")
-	TArray<float> MaxSpeed;
+	float MaxSpeed;
 
 	int Size;
 };
-
-//USTRUCT()
-//struct FPKMovementDataComponentStruct
-//{
-//	GENERATED_BODY()
-//
-//	UPROPERTY(EditAnywhere, Category = "MovementData")
-//	TArray<FVector> Velocity;
-//
-//	UPROPERTY(EditAnywhere, Category = "MovementData")
-//	TArray<FVector> Acceleration;
-//
-//	UPROPERTY(EditAnywhere, Category = "MovementData")
-//	TArray<float> MaxSpeed;
-//
-//};
-//
-//USTRUCT()
-//struct FTest : public FPKMovementDataComponentStruct
-//{
-//	GENERATED_BODY()
-//
-//
-//
-//};
