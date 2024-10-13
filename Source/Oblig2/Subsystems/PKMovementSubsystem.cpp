@@ -2,10 +2,8 @@
 
 #include "PKMovementSubsystem.h"
 
-#include "EngineUtils.h"
 #include "Engine/World.h"
 #include "GameFramework/Actor.h"
-#include "Kismet/GameplayStatics.h"
 #include "Oblig2/Components/PKMovementDataComponent.h"
 
 void UPKMovementSubsystem::Initialize(FSubsystemCollectionBase& Collection)
@@ -16,7 +14,7 @@ void UPKMovementSubsystem::Initialize(FSubsystemCollectionBase& Collection)
 void UPKMovementSubsystem::Deinitialize()
 {
 	Actors.Empty();
-	MovementComponents.Empty();
+	MovementDataComponents.Empty();
 	Velocities.Empty();
 	Accelerations.Empty();
 	MaxSpeeds.Empty();
@@ -39,7 +37,7 @@ void UPKMovementSubsystem::Tick(float DeltaTime)
 		Actors[i]->AddActorWorldOffset(Velocities[i] * DeltaTime);
 
 		// Synchronize back to the component
-		MovementComponents[i]->Velocity = Velocities[i];
+		MovementDataComponents[i]->Velocity = Velocities[i];
 	}
 }
 
@@ -53,25 +51,25 @@ void UPKMovementSubsystem::RegisterComponent(UPKMovementDataComponent* Component
 	if (Component && Component->GetOwner())
 	{
 		Actors.AddUnique(Component->GetOwner());
-		MovementComponents.AddUnique(Component);
+		MovementDataComponents.AddUnique(Component);
 		Velocities.Add(Component->Velocity);
 		Accelerations.Add(Component->Acceleration);
 		MaxSpeeds.Add(Component->MaxSpeed);
-		UE_LOG(LogTemp, Warning, TEXT("Registered Actor: %s"), *Component->GetOwner()->GetName());
+		UE_LOG(LogTemp, Warning, TEXT("Registered Actor: %s Movement Component"), *Component->GetOwner()->GetName());
 	}
 }
 
 void UPKMovementSubsystem::UnregisterComponent(UPKMovementDataComponent* Component)
 {
-	int32 Index = MovementComponents.IndexOfByKey(Component);
+	int32 Index = MovementDataComponents.IndexOfByKey(Component);
 	if (Index != INDEX_NONE)
 	{
 		Actors.RemoveAt(Index);
-		MovementComponents.RemoveAt(Index);
+		MovementDataComponents.RemoveAt(Index);
 		Velocities.RemoveAt(Index);
 		Accelerations.RemoveAt(Index);
 		MaxSpeeds.RemoveAt(Index);
-		UE_LOG(LogTemp, Warning, TEXT("Unregistered Component at index: %d"), Index);
+		UE_LOG(LogTemp, Warning, TEXT("Unregistered Movement Component at index: %d"), Index);
 	}
 }
 

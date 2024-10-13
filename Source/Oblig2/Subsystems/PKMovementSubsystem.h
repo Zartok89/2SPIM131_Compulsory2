@@ -31,7 +31,7 @@ public:
 private:
 	//TArray<TWeakObjectPtr<AActor>> Actors;
 	TArray<AActor*> Actors;
-	TArray<UPKMovementDataComponent*> MovementComponents;
+	TArray<UPKMovementDataComponent*> MovementDataComponents;
 	TArray<FVector> Velocities;
 	TArray<FVector> Accelerations;
 	TArray<float> MaxSpeeds;

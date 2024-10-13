@@ -4,6 +4,7 @@
 APKCharacter::APKCharacter()
 {
 	PrimaryActorTick.bCanEverTick = true;
+
 }
 
 void APKCharacter::BeginPlay()

@@ -14,14 +14,24 @@ public:
 	UPKAttributeDataComponent();
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "AttributeData")
-	TArray<int32> Health;
+	int32 CharacterLevel;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "AttributeData")
-	TArray<int32> MaxHealth;
+	int32 CharacterExp;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "AttributeData")
-	TArray<int32> AttackPower;
+	int32 Health;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "AttributeData")
-	TArray<int32> Defense;
+	int32 MaxHealth;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "AttributeData")
+	int32 AttackPower;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "AttributeData")
+	int32 Defense;
+
+	protected:
+	virtual void BeginPlay() override;
+	virtual void EndPlay(const EEndPlayReason::Type EndPlayReason) override;
 };

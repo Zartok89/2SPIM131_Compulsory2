@@ -4,6 +4,8 @@
 
 #include "CoreMinimal.h"
 #include "GameFramework/Actor.h"
+#include "NiagaraComponent.h"  
+#include "NiagaraFunctionLibrary.h"
 #include "PKCharacter.generated.h"
 
 UCLASS()

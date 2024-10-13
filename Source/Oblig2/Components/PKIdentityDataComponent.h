@@ -13,11 +13,12 @@ public:
 	UPKIdentityDataComponent();
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "IdentityData")
-	TArray<FString> Name;
+	FString CharacterName;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "IdentityData")
-	TArray<FString> Class;
+	FString CharacterClass;
 
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "IdentityData")
-	TArray<int32> CharacterLevel;
+	protected:
+	virtual void BeginPlay() override;
+	virtual void EndPlay(const EEndPlayReason::Type EndPlayReason) override;
 };
