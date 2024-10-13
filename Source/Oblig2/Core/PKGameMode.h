@@ -7,11 +7,10 @@
 #include "PKGameMode.generated.h"
 
 /**
- * 
+ *
  */
 UCLASS()
 class OBLIG2_API APKGameMode : public AGameModeBase
 {
 	GENERATED_BODY()
-	
 };

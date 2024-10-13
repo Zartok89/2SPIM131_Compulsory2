@@ -4,13 +4,12 @@
 #include "Components/ActorComponent.h"
 #include "PKAttributeDataComponent.generated.h"
 
-
-UCLASS( ClassGroup=(Custom), meta=(BlueprintSpawnableComponent) )
+UCLASS(ClassGroup = (Custom), meta = (BlueprintSpawnableComponent))
 class OBLIG2_API UPKAttributeDataComponent : public UActorComponent
 {
 	GENERATED_BODY()
 
-public:	
+public:
 	// Sets default values for this component's properties
 	UPKAttributeDataComponent();
 

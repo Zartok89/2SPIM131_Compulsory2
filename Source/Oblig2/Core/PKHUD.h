@@ -7,11 +7,10 @@
 #include "PKHUD.generated.h"
 
 /**
- * 
+ *
  */
 UCLASS()
 class OBLIG2_API APKHUD : public AHUD
 {
 	GENERATED_BODY()
-	
 };

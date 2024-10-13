@@ -11,7 +11,6 @@
 void UPKMovementSubsystem::Initialize(FSubsystemCollectionBase& Collection)
 {
 	Super::Initialize(Collection);
-	CollectActorsWithMovementComponent();
 }
 
 void UPKMovementSubsystem::Deinitialize()
@@ -49,44 +48,72 @@ TStatId UPKMovementSubsystem::GetStatId() const
 	RETURN_QUICK_DECLARE_CYCLE_STAT(UPKMovementSubsystem, STATGROUP_Tickables);
 }
 
-void UPKMovementSubsystem::CollectActorsWithMovementComponent()
+void UPKMovementSubsystem::RegisterComponent(UPKMovementDataComponent* Component)
 {
-	// Getting the world
-	UWorld* World = GetWorld();
-
-	// Clear previous arrays before collecting
-	Actors.Empty();
-	MovementComponents.Empty();
-	Velocities.Empty();
-	Accelerations.Empty();
-	MaxSpeeds.Empty();
-
-	// Finding all objects in world which has UPKMovementDataComponent
-	for (TObjectIterator<UPKMovementDataComponent> It; It; ++It)
+	if (Component && Component->GetOwner())
 	{
-		UPKMovementDataComponent* MovementComponent = *It;
-
-		if (MovementComponent && IsValid(MovementComponent))
-		{
-			AActor* Owner = MovementComponent->GetOwner();
-
-			if (Owner && IsValid(Owner))
-			{
-				// Adding all the different data each entity has into the MovementSubsystems TArrays to store them in sequence of the memory
-				if (Owner->GetWorld() == World)
-				{
-					UPKMovementDataComponent* OwnerMovementComponent = Owner->FindComponentByClass<UPKMovementDataComponent>();
-
-					Actors.AddUnique(Owner);
-					MovementComponents.Add(OwnerMovementComponent);
-					Velocities.Add(OwnerMovementComponent->Velocity);
-					Accelerations.Add(OwnerMovementComponent->Acceleration);
-					MaxSpeeds.Add(OwnerMovementComponent->MaxSpeed);
-					UE_LOG(LogTemp, Log, TEXT("Found Actor: %s"), *Owner->GetName());
-				}
-			}
-		}
+		Actors.AddUnique(Component->GetOwner());
+		MovementComponents.AddUnique(Component);
+		Velocities.Add(Component->Velocity);
+		Accelerations.Add(Component->Acceleration);
+		MaxSpeeds.Add(Component->MaxSpeed);
+		UE_LOG(LogTemp, Warning, TEXT("Registered Actor: %s"), *Component->GetOwner()->GetName());
 	}
-
-	UE_LOG(LogTemp, Log, TEXT("Total Actors with UPKMovementDataComponent: %d"), Actors.Num());
 }
+
+void UPKMovementSubsystem::UnregisterComponent(UPKMovementDataComponent* Component)
+{
+	int32 Index = MovementComponents.IndexOfByKey(Component);
+	if (Index != INDEX_NONE)
+	{
+		Actors.RemoveAt(Index);
+		MovementComponents.RemoveAt(Index);
+		Velocities.RemoveAt(Index);
+		Accelerations.RemoveAt(Index);
+		MaxSpeeds.RemoveAt(Index);
+		UE_LOG(LogTemp, Warning, TEXT("Unregistered Component at index: %d"), Index);
+	}
+}
+
+//void UPKMovementSubsystem::CollectActorsWithMovementComponent()
+//{
+//	// Getting the world
+//	UWorld* World = GetWorld();
+//
+//	// Clear previous arrays before collecting
+//	Actors.Empty();
+//	MovementComponents.Empty();
+//	Velocities.Empty();
+//	Accelerations.Empty();
+//	MaxSpeeds.Empty();
+//
+//	// Finding all objects in world which has UPKMovementDataComponent
+//	for (TObjectIterator<UPKMovementDataComponent> It; It; ++It)
+//	{
+//		UPKMovementDataComponent* MovementDataComponent = *It;
+//
+//		if (MovementDataComponent && IsValid(MovementDataComponent))
+//		{
+//			AActor* Owner = MovementDataComponent->GetOwner();
+//
+//			if (Owner && IsValid(Owner))
+//			{
+//				// Adding all the different data each entity has into the MovementSubsystems TArrays to store them in sequence of the memory
+//				if (Owner->GetWorld() == World)
+//				{
+//					// AddUnique ensure only one movement component exists on the Actor
+//					Actors.AddUnique(Owner);
+//
+//					MovementComponents.Add(MovementDataComponent);
+//					Velocities.Add(MovementDataComponent->Velocity);
+//					Accelerations.Add(MovementDataComponent->Acceleration);
+//					MaxSpeeds.Add(MovementDataComponent->MaxSpeed);
+//
+//					UE_LOG(LogTemp, Warning, TEXT("Found Actor: %s"), *Owner->GetName());
+//				}
+//			}
+//		}
+//	}
+//
+//	UE_LOG(LogTemp, Warning, TEXT("Total Actors with UPKMovementDataComponent: %d"), Actors.Num());
+//}

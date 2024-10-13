@@ -7,11 +7,10 @@
 #include "PKGameState.generated.h"
 
 /**
- * 
+ *
  */
 UCLASS()
 class OBLIG2_API APKGameState : public AGameStateBase
 {
 	GENERATED_BODY()
-	
 };

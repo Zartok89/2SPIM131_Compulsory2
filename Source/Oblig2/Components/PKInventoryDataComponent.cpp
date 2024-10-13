@@ -3,5 +3,4 @@
 UPKInventoryDataComponent::UPKInventoryDataComponent()
 {
 	PrimaryComponentTick.bCanEverTick = false;
-
 }

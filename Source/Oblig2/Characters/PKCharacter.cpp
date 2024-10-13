@@ -4,19 +4,16 @@
 APKCharacter::APKCharacter()
 {
 	PrimaryActorTick.bCanEverTick = true;
-
 }
 
 void APKCharacter::BeginPlay()
 {
 	Super::BeginPlay();
-	
 }
 
 void APKCharacter::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
-
 }
 
 void APKCharacter::Die()
@@ -32,5 +29,4 @@ void APKCharacter::Die()
 
 void APKCharacter::HandleDeath()
 {
-	
 }

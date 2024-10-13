@@ -5,11 +5,10 @@
 #include "PKPlayerController.generated.h"
 
 /**
- * 
+ *
  */
 UCLASS()
 class OBLIG2_API APKPlayerController : public APlayerController
 {
 	GENERATED_BODY()
-	
 };

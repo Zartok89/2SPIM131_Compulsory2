@@ -24,13 +24,17 @@ public:
 	virtual bool IsTickable() const override { return true; }
 	virtual TStatId GetStatId() const override;
 
+	// Register Movement Components
+	void RegisterComponent(UPKMovementDataComponent* Component);
+	void UnregisterComponent(UPKMovementDataComponent* Component);
+
 private:
 	//TArray<TWeakObjectPtr<AActor>> Actors;
-    TArray<AActor*> Actors;  
-    TArray<UPKMovementDataComponent*> MovementComponents;  
-    TArray<FVector> Velocities;  
-    TArray<FVector> Accelerations;  
-    TArray<float> MaxSpeeds;  
+	TArray<AActor*> Actors;
+	TArray<UPKMovementDataComponent*> MovementComponents;
+	TArray<FVector> Velocities;
+	TArray<FVector> Accelerations;
+	TArray<float> MaxSpeeds;
 
-	void CollectActorsWithMovementComponent();
+	//void CollectActorsWithMovementComponent();
 };
