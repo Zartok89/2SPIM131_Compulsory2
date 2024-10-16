@@ -6,6 +6,8 @@
 #include "PKCharacter.h"
 #include "PKCharacterPlayer.generated.h"
 
+
+
 /**
  *
  */
@@ -14,17 +16,15 @@ class OBLIG2_API APKCharacterPlayer : public APKCharacter
 {
 	GENERATED_BODY()
 
+protected:
+	virtual void BeginPlay() override;
+
 public:
 	APKCharacterPlayer();
 
-	// Declare Delegates
-	DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FOnLevelUpSignature, APKCharacterPlayer*, Character);
-
-	// Instancing the Delegate
-	UPROPERTY(BlueprintAssignable, Category = "CharacterPlayerEvent")
-	FOnLevelUpSignature OnLevelUp;
-
-	void LevelUp();
+	// Handler function for delegate signatures
+    UFUNCTION()  
+    void OnLevelUpHandler(int32 NewLevel);
 
 	/*
 	* Variables
@@ -33,5 +33,5 @@ public:
 	UNiagaraComponent* NiagaraComponent;
 
 protected:
-	void HandleLevelUp();
+	void LevelUp();
 };

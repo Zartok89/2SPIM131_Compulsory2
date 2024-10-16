@@ -16,40 +16,48 @@ UPKAttributeDataComponent::UPKAttributeDataComponent()
 	Defense = 4;
 }
 
-void UPKAttributeDataComponent::BeginPlay()
+void UPKAttributeDataComponent::AddExperience(int32 Amount)
 {
-	Super::BeginPlay();
-
-	// Register in the Progression Subsystem
-	UPKProgressionSubsystem* ProgressionSubsystem = GetWorld()->GetSubsystem<UPKProgressionSubsystem>();
-	if (ProgressionSubsystem)
+	if (CharacterExp >= 100)
 	{
-		ProgressionSubsystem->RegisterAttributeDataComponent(this);
-	}
-
-	// Register in the Combat Subsystem
-	UPKCombatSubsystem* CombatSubsystem = GetWorld()->GetSubsystem<UPKCombatSubsystem>();
-	if (CombatSubsystem)
-	{
-		//CombatSubsystem->RegisterAttributeDataComponent(this);
+		LevelUp();
 	}
 }
 
-void UPKAttributeDataComponent::EndPlay(const EEndPlayReason::Type EndPlayReason)
+void UPKAttributeDataComponent::LevelUp()
 {
-	Super::EndPlay(EndPlayReason);
-
-	// Unregister from the Progression Subsystem
-	UPKProgressionSubsystem* ProgressionSubsystem = GetWorld()->GetSubsystem<UPKProgressionSubsystem>();
-	if (ProgressionSubsystem)
-	{
-		ProgressionSubsystem->UnregisterAttributeDataComponent(this);
-	}
-
-	// Unregister from the Combat Subsystem
-	UPKCombatSubsystem* CombatSubsystem = GetWorld()->GetSubsystem<UPKCombatSubsystem>();
-	if (CombatSubsystem)
-	{
-		//CombatSubsystem->RegisterAttributeDataComponent(this);
-	}
+	CharacterLevel++;  
+    CharacterExp = 0;
+	OnLevelUp.Broadcast(CharacterLevel);
 }
+
+
+//// Unused code from earlier iteration
+//
+//	// Register in the Progression Subsystem
+//	UPKProgressionSubsystem* ProgressionSubsystem = GetWorld()->GetSubsystem<UPKProgressionSubsystem>();
+//	if (ProgressionSubsystem)
+//	{
+//		ProgressionSubsystem->RegisterAttributeDataComponent(this);
+//	}
+//
+//	// Register in the Combat Subsystem
+//	UPKCombatSubsystem* CombatSubsystem = GetWorld()->GetSubsystem<UPKCombatSubsystem>();
+//	if (CombatSubsystem)
+//	{
+//		//CombatSubsystem->RegisterAttributeDataComponent(this);
+//
+//	}
+//	// Unregister from the Progression Subsystem
+//	UPKProgressionSubsystem* ProgressionSubsystem = GetWorld()->GetSubsystem<UPKProgressionSubsystem>();
+//	if (ProgressionSubsystem)
+//	{
+//		ProgressionSubsystem->UnregisterAttributeDataComponent(this);
+//	}
+//
+//	// Unregister from the Combat Subsystem
+//	UPKCombatSubsystem* CombatSubsystem = GetWorld()->GetSubsystem<UPKCombatSubsystem>();
+//	if (CombatSubsystem)
+//	{
+//		//CombatSubsystem->RegisterAttributeDataComponent(this);
+//	}

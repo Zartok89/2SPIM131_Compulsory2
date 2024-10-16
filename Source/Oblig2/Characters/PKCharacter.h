@@ -4,9 +4,12 @@
 
 #include "CoreMinimal.h"
 #include "GameFramework/Actor.h"
-#include "NiagaraComponent.h"  
+#include "NiagaraComponent.h"
 #include "NiagaraFunctionLibrary.h"
 #include "PKCharacter.generated.h"
+
+	// Declare Delegates
+DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FOnCharacterDeathSignature, APKCharacter*, Character);
 
 UCLASS()
 class OBLIG2_API APKCharacter : public AActor
@@ -17,9 +20,6 @@ protected:
 	virtual void BeginPlay() override;
 
 public:
-	// Declare Delegates
-	DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FOnCharacterDeathSignature, APKCharacter*, Character);
-
 	// Sets default values for this actor's properties
 	APKCharacter();
 
