@@ -12,7 +12,7 @@
 DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FOnCharacterDeathSignature, APKCharacter*, Character);
 
 UCLASS()
-class OBLIG2_API APKCharacter : public AActor
+class OBLIG2_API APKCharacter : public APawn
 {
 	GENERATED_BODY()
 

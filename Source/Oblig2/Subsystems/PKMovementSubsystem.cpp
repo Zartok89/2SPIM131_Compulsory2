@@ -27,17 +27,20 @@ void UPKMovementSubsystem::Tick(float DeltaTime)
 
 	for (int32 i = 0; i < NumActors; ++i)
 	{
-		// Update velocities
-		Velocities[i] += Accelerations[i] * DeltaTime;
+		// Sync the latest acceleration  
+        FVector currentAcceleration = MovementDataComponents[i]->Acceleration;  
 
-		// Clamp velocities
-		Velocities[i] = Velocities[i].GetClampedToMaxSize(MaxSpeeds[i]);
+        // Update velocities
+        Velocities[i] += currentAcceleration * DeltaTime;  
 
-		// Move the actor
-		Actors[i]->AddActorWorldOffset(Velocities[i] * DeltaTime);
+        // Clamp velocities  
+        Velocities[i] = Velocities[i].GetClampedToMaxSize(MaxSpeeds[i]);  
 
-		// Synchronize back to the component
-		MovementDataComponents[i]->Velocity = Velocities[i];
+        // Move the actor  
+        Actors[i]->AddActorWorldOffset(Velocities[i] * DeltaTime);  
+
+        // Synchronize back to the component  
+        MovementDataComponents[i]->Velocity = Velocities[i];
 	}
 }
 
@@ -48,6 +51,7 @@ TStatId UPKMovementSubsystem::GetStatId() const
 
 void UPKMovementSubsystem::RegisterComponent(UPKMovementDataComponent* Component)
 {
+	// Registering the component
 	if (Component && Component->GetOwner())
 	{
 		Actors.AddUnique(Component->GetOwner());
@@ -61,6 +65,7 @@ void UPKMovementSubsystem::RegisterComponent(UPKMovementDataComponent* Component
 
 void UPKMovementSubsystem::UnregisterComponent(UPKMovementDataComponent* Component)
 {
+	// Unregistering the component
 	int32 Index = MovementDataComponents.IndexOfByKey(Component);
 	if (Index != INDEX_NONE)
 	{

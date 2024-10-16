@@ -18,6 +18,9 @@ class OBLIG2_API APKPlayerController : public APlayerController
 public:
 	void MoveForward(const FInputActionValue& Value);
 	void MoveRight(const FInputActionValue& Value);
+	void StopMoveForward();
+	void StopMoveRight();
+
 
 	/*
 	 * IMC and Actions
@@ -35,6 +38,10 @@ public:
 	* Variables
 	*/
 	UPKMovementDataComponent* MovementDataComponent;
+
+	UPROPERTY(EditDefaultsOnly, Category = "Input")
+	float MovementSpeed {5.f};
+
 
 protected:
 	virtual void BeginPlay() override;
