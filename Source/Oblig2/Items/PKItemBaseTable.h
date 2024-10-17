@@ -3,12 +3,14 @@
 #pragma once
 
 #include "CoreMinimal.h"
+#include "Engine/DataTable.h"
+#include "UObject/NoExportTypes.h"
 #include "Engine/StaticMesh.h"
 #include "Engine/Texture2D.h"
-#include "PKBaseItemTable.generated.h"
+#include "PKItemBaseTable.generated.h"
 
 USTRUCT(BlueprintType)
-struct OBLIG2_API FPKBaseItemTable : public FTableRowBase
+struct OBLIG2_API FPKItemBaseTable : public FTableRowBase
 {
 	GENERATED_BODY()
 
