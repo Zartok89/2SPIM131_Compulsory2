@@ -12,4 +12,10 @@ class OBLIG2_API UPKInventoryDataComponent : public UActorComponent
 public:
 	// Sets default values for this component's properties
 	UPKInventoryDataComponent();
+
+	UFUNCTION(BlueprintCallable, Category = "InventoryData")
+	void PotionPickup();
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "InventoryData")
+	int32 PotionStacks;
 };

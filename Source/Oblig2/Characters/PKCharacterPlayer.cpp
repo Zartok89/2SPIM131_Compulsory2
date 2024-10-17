@@ -30,10 +30,10 @@ void APKCharacterPlayer::OnLevelUpHandler(int32 NewLevel)
 {
 	LevelUp();
 
-	//if (YourUIWidget)  
- //   {  
- //       YourUIWidget->UpdateLevelDisplay(NewLevel);  
- //   }  
+	//if (YourUIWidget)
+ //   {
+ //       YourUIWidget->UpdateLevelDisplay(NewLevel);
+ //   }
 }
 
 void APKCharacterPlayer::LevelUp()

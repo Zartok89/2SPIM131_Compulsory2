@@ -27,20 +27,20 @@ void UPKMovementSubsystem::Tick(float DeltaTime)
 
 	for (int32 i = 0; i < NumActors; ++i)
 	{
-		// Sync the latest acceleration  
-        FVector currentAcceleration = MovementDataComponents[i]->Acceleration;  
+		// Sync the latest acceleration
+		FVector currentAcceleration = MovementDataComponents[i]->Acceleration;
 
-        // Update velocities
-        Velocities[i] += currentAcceleration * DeltaTime;  
+		// Update velocities
+		Velocities[i] += currentAcceleration * DeltaTime;
 
-        // Clamp velocities  
-        Velocities[i] = Velocities[i].GetClampedToMaxSize(MaxSpeeds[i]);  
+		// Clamp velocities
+		Velocities[i] = Velocities[i].GetClampedToMaxSize(MaxSpeeds[i]);
 
-        // Move the actor  
-        Actors[i]->AddActorWorldOffset(Velocities[i] * DeltaTime);  
+		// Move the actor
+		Actors[i]->AddActorWorldOffset(Velocities[i] * DeltaTime);
 
-        // Synchronize back to the component  
-        MovementDataComponents[i]->Velocity = Velocities[i];
+		// Synchronize back to the component
+		MovementDataComponents[i]->Velocity = Velocities[i];
 	}
 }
 

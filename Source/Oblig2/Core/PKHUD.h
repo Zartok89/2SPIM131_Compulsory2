@@ -15,22 +15,22 @@ class OBLIG2_API APKHUD : public AHUD
 {
 	GENERATED_BODY()
 
-	public:  
-    // Constructor  
-    APKHUD();  
+public:
+	// Constructor
+	APKHUD();
 
-    virtual void BeginPlay() override;  
+	virtual void BeginPlay() override;
 
-    // LevelUp Handler
-    UFUNCTION()  
-    void OnLevelUpHandler(int32 NewLevel);  
+	// LevelUp Handler
+	UFUNCTION()
+	void OnLevelUpHandler(int32 NewLevel);
 
-protected:  
-    // Reference to the widget  
-    UPROPERTY()  
-    UPKUserWidget* UserWidget;  
+protected:
+	// Reference to the widget
+	UPROPERTY()
+	UPKUserWidget* UserWidget;
 
-    // Widget class to instantiate  
-    UPROPERTY(EditDefaultsOnly, Category = "PKHUD")  
-    TSubclassOf<UPKUserWidget> UserWidgetClass;  
+	// Widget class to instantiate
+	UPROPERTY(EditDefaultsOnly, Category = "PKHUD")
+	TSubclassOf<UPKUserWidget> UserWidgetClass;
 };

@@ -7,11 +7,10 @@
 #include "PKCharacterEnemy.generated.h"
 
 /**
- * 
+ *
  */
 UCLASS()
 class OBLIG2_API APKCharacterEnemy : public APKCharacter
 {
 	GENERATED_BODY()
-	
 };

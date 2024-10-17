@@ -6,8 +6,6 @@
 #include "PKCharacter.h"
 #include "PKCharacterPlayer.generated.h"
 
-
-
 /**
  *
  */
@@ -23,8 +21,8 @@ public:
 	APKCharacterPlayer();
 
 	// Handler function for delegate signatures
-    UFUNCTION()  
-    void OnLevelUpHandler(int32 NewLevel);
+	UFUNCTION()
+	void OnLevelUpHandler(int32 NewLevel);
 
 	/*
 	* Variables

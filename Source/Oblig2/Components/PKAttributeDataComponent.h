@@ -19,11 +19,11 @@ public:
 	// Instancing Delegates
 	FOnLevelUpSignature OnLevelUp;
 
-	UFUNCTION(BlueprintCallable, Category = "Attributes")  
+	UFUNCTION(BlueprintCallable, Category = "Attributes")
 	void AddExperience(int32 Amount);
 
-	UFUNCTION(BlueprintCallable, Category = "Attributes")  
-    int32 GetLevel() const { return CharacterLevel; } 
+	UFUNCTION(BlueprintCallable, Category = "Attributes")
+	int32 GetLevel() const { return CharacterLevel; }
 
 	/*
 	 * Variables
@@ -36,10 +36,10 @@ public:
 	int32 CharacterExp;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "AttributeData")
-	int32 Health;
+	float Health;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "AttributeData")
-	int32 MaxHealth;
+	float MaxHealth;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "AttributeData")
 	int32 AttackPower;

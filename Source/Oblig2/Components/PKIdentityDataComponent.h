@@ -17,5 +17,4 @@ public:
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "IdentityData")
 	FString CharacterClass;
-
 };

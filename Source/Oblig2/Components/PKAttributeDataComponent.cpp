@@ -26,11 +26,10 @@ void UPKAttributeDataComponent::AddExperience(int32 Amount)
 
 void UPKAttributeDataComponent::LevelUp()
 {
-	CharacterLevel++;  
-    CharacterExp = 0;
+	CharacterLevel++;
+	CharacterExp = 0;
 	OnLevelUp.Broadcast(CharacterLevel);
 }
-
 
 //// Unused code from earlier iteration
 //

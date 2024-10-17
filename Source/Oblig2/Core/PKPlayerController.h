@@ -21,7 +21,6 @@ public:
 	void StopMoveForward();
 	void StopMoveRight();
 
-
 	/*
 	 * IMC and Actions
 	 */
@@ -40,10 +39,9 @@ public:
 	UPKMovementDataComponent* MovementDataComponent;
 
 	UPROPERTY(EditDefaultsOnly, Category = "Input")
-	float MovementSpeed {5.f};
-
+	float MovementSpeed{ 5.f };
 
 protected:
 	virtual void BeginPlay() override;
-	virtual void SetupInputComponent() override;  
+	virtual void SetupInputComponent() override;
 };
