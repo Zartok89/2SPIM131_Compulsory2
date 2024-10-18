@@ -28,6 +28,10 @@ public:
 	void RegisterComponent(UPKMovementDataComponent* Component);
 	void UnregisterComponent(UPKMovementDataComponent* Component);
 
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Options")
+	float DampeningForce;
+
+
 private:
 	//TArray<TWeakObjectPtr<AActor>> Actors;
 	TArray<AActor*> Actors;
@@ -35,6 +39,7 @@ private:
 	TArray<FVector> Velocities;
 	TArray<FVector> Accelerations;
 	TArray<float> MaxSpeeds;
+
 
 	//void CollectActorsWithMovementComponent();
 };

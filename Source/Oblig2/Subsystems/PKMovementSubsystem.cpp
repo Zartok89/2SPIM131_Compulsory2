@@ -4,11 +4,13 @@
 
 #include "Engine/World.h"
 #include "GameFramework/Actor.h"
+#include "Kismet/GameplayStatics.h"
 #include "Oblig2/Components/PKMovementDataComponent.h"
 
 void UPKMovementSubsystem::Initialize(FSubsystemCollectionBase& Collection)
 {
 	Super::Initialize(Collection);
+	DampeningForce = 2.f;
 }
 
 void UPKMovementSubsystem::Deinitialize()
@@ -23,25 +25,49 @@ void UPKMovementSubsystem::Deinitialize()
 
 void UPKMovementSubsystem::Tick(float DeltaTime)
 {
-	const int32 NumActors = Actors.Num();
 
-	for (int32 i = 0; i < NumActors; ++i)
-	{
-		// Sync the latest acceleration
-		FVector currentAcceleration = MovementDataComponents[i]->Acceleration;
+	const int32 NumActors = Actors.Num();  
 
-		// Update velocities
-		Velocities[i] += currentAcceleration * DeltaTime;
+    // Get player location  
+    APlayerController* PlayerController = UGameplayStatics::GetPlayerController(GetWorld(), 0);  
+    if (!PlayerController) return;  
 
-		// Clamp velocities
-		Velocities[i] = Velocities[i].GetClampedToMaxSize(MaxSpeeds[i]);
+    APawn* PlayerPawn = PlayerController->GetPawn();  
+    if (!PlayerPawn) return;  
 
-		// Move the actor
-		Actors[i]->AddActorWorldOffset(Velocities[i] * DeltaTime);
+    FVector PlayerLocation = PlayerPawn->GetActorLocation();  
 
-		// Synchronize back to the component
-		MovementDataComponents[i]->Velocity = Velocities[i];
-	}
+    for (int32 i = 0; i < NumActors; ++i)  
+    {  
+        // Get the actors
+        AActor* Actor = Actors[i];  
+
+        // Calculate the direction to the player  
+        FVector DirectionToPlayer = PlayerLocation - Actor->GetActorLocation();  
+        DirectionToPlayer.Normalize();
+
+        // Sync the latest acceleration  
+        FVector currentAcceleration = MovementDataComponents[i]->Acceleration;  
+
+        // Update velocities 
+        Velocities[i] += currentAcceleration * DeltaTime;  
+        
+        // Adjust the velocity
+        float Speed = MaxSpeeds[i];
+        Velocities[i] += DirectionToPlayer * Speed * DeltaTime;
+
+        // Clamp velocities  
+        Velocities[i] = Velocities[i].GetClampedToMaxSize(Speed);  
+
+        // Move the actor  
+        Actor->AddActorWorldOffset(Velocities[i] * DeltaTime);  
+
+		//// Adding dampening to the velocity
+		//Velocities[i] *= 1 - (DampeningForce * DeltaTime); 
+
+        // Synchronize back to the component
+        MovementDataComponents[i]->Velocity = Velocities[i];  
+    }  
 }
 
 TStatId UPKMovementSubsystem::GetStatId() const

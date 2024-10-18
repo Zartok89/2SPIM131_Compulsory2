@@ -6,6 +6,9 @@
 #include "PKCharacter.h"
 #include "PKCharacterPlayer.generated.h"
 
+class UPKAttributeDataComponent;
+class UPKEquipmentData;
+
 /**
  *
  */
@@ -28,7 +31,16 @@ public:
 	* Variables
 	*/
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "CharacterEvent")
-	UNiagaraComponent* NiagaraComponent;
+	UNiagaraComponent* NiagaraLevelUpComponent;
+
+	UFUNCTION(BlueprintCallable, Category = "Combat")  
+   void PerformAttack(UPKAttributeDataComponent* AttackerAttributes, UPKAttributeDataComponent* TargetAttributes);  
+
+    UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Components")  
+    UPKAttributeDataComponent* AttributeDataComponent;  
+
+    UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Components")  
+    UPKEquipmentData* EquipmentDataComponent;  
 
 protected:
 	void LevelUp();

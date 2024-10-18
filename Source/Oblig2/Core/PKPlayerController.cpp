@@ -45,8 +45,6 @@ void APKPlayerController::MoveForward(const FInputActionValue& Value)
 		float ForwardValue = Value.Get<float>();
 
 		MovementDataComponent->Acceleration.X = ForwardValue * MovementSpeed;
-
-		UE_LOG(LogTemp, Warning, TEXT("Acceleration: %s"), *MovementDataComponent->Acceleration.ToString());
 	}
 }
 
@@ -59,19 +57,17 @@ void APKPlayerController::MoveRight(const FInputActionValue& Value)
 
 		// Update acceleration based on input
 		MovementDataComponent->Acceleration.Y = RightValue * MovementSpeed;
-
-		UE_LOG(LogTemp, Warning, TEXT("Acceleration: %s"), *MovementDataComponent->Acceleration.ToString());
 	}
 }
 
 void APKPlayerController::StopMoveForward()
 {
 	MovementDataComponent->Acceleration.X = 0.f;
-	MovementDataComponent->Velocity.X = 0.f;
+	//MovementDataComponent->Velocity.X = 0.f;
 }
 
 void APKPlayerController::StopMoveRight()
 {
 	MovementDataComponent->Acceleration.Y = 0.f;
-	MovementDataComponent->Velocity.Y = 0.f;
+	//MovementDataComponent->Velocity.Y = 0.f;
 }

@@ -2,15 +2,16 @@
 
 #include "PKCharacterPlayer.h"
 #include "Oblig2/Components/PKAttributeDataComponent.h"
+#include "Oblig2/Subsystems/PKCombatSubsystem.h"
 
 APKCharacterPlayer::APKCharacterPlayer()
 {
 	PrimaryActorTick.bCanEverTick = true;
 
 	// Creating and setting up the Niagara Component
-	NiagaraComponent = CreateDefaultSubobject<UNiagaraComponent>("LevelUpEffect");
-	NiagaraComponent->SetupAttachment(RootComponent);
-	NiagaraComponent->SetAutoActivate(false);
+	NiagaraLevelUpComponent = CreateDefaultSubobject<UNiagaraComponent>("LevelUpEffect");
+	NiagaraLevelUpComponent->SetupAttachment(RootComponent);
+	NiagaraLevelUpComponent->SetAutoActivate(false);
 }
 
 void APKCharacterPlayer::BeginPlay()
@@ -24,6 +25,12 @@ void APKCharacterPlayer::BeginPlay()
 		// Bind the OnLevelUpHandler function to the OnLevelUp delegate
 		AttributeComponent->OnLevelUp.AddDynamic(this, &APKCharacterPlayer::OnLevelUpHandler);
 	}
+
+	UPKCombatSubsystem* CombatSubsystem = GetWorld()->GetSubsystem<UPKCombatSubsystem>();
+	if (CombatSubsystem && AttributeDataComponent && EquipmentDataComponent)
+	{
+		CombatSubsystem->OnAttack.AddDynamic(this, &APKCharacterPlayer::PerformAttack);
+	}
 }
 
 void APKCharacterPlayer::OnLevelUpHandler(int32 NewLevel)
@@ -36,7 +43,16 @@ void APKCharacterPlayer::OnLevelUpHandler(int32 NewLevel)
  //   }
 }
 
+void APKCharacterPlayer::PerformAttack(UPKAttributeDataComponent* AttackerAttributes, UPKAttributeDataComponent* TargetAttributes)
+{
+	UPKCombatSubsystem* CombatSubsystem = GetWorld()->GetSubsystem<UPKCombatSubsystem>();
+	if (CombatSubsystem)
+	{
+		CombatSubsystem->OnAttack.Broadcast(AttackerAttributes, TargetAttributes); 
+	}
+}
+
 void APKCharacterPlayer::LevelUp()
 {
-	NiagaraComponent->Activate(true);
+	NiagaraLevelUpComponent->Activate(true);
 }
